@@ -1,3 +1,7 @@
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
 header {
     width: 100%;
     height: 80px;
@@ -23,7 +27,6 @@ header {
     color: white;
     display: table-cell;
     vertical-align: middle;
-    font-family: Montserrat;
     font-size: 32px;
     font-weight: 200;
 }
@@ -32,12 +35,11 @@ header {
     font-weight: 800;
 }
 
-
 .navigation {
     float: right;
     height: 100%;
     display: flex;
-    vertical-align: middle;
+
 }
 
 .navigation  a:last-child{
@@ -48,16 +50,23 @@ li {
     margin: 5%;
 }
 .item{
-    vertical-align: middle;
-    height: 100%;
+    margin: 0;
     color: white;
-    font-family: Montserrat;
-    font-size: 20px;
-    font-weight: 600;
+    text-decoration: none;
+
 }
 
-a:hover {
-    background-color: darkgray;
+.scale{
+    margin: 0;
+    height: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    transition: 1s;
+}
+
+.scale:hover {
+    transform: scale(1.1);
 }
 
 main {
@@ -65,5 +74,4 @@ main {
     height: 100%;
     display: block;
     margin: 0 auto;
-    font-family: Montserrat;
 }

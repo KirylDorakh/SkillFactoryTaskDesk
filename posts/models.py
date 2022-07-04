@@ -1,10 +1,11 @@
-from django.db import models
+from datetime import datetime
 
+from django.db import models
 from django.contrib.auth.models import User
 
 
 class Author(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         author_id = str(self.user.username)
@@ -13,6 +14,9 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -32,6 +36,10 @@ class Comment(models.Model):
 
     comment_text = models.TextField()
     comment_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.comment_text
+
 
 
 
