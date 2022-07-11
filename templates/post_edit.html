@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit post
+{% endblock title %}
+
+
+{% block content %}
+    <h1>Edit post</h1>
+    <form method="post" action="">
+        {% csrf_token %} }}
+        {{ form.as_p }}
+        <input type="submit" value="update">
+    </form>
+    <hr>
+    <a class="back" href="{% url 'post_detail' post.pk%}">Back</a>
+{% endblock content %}

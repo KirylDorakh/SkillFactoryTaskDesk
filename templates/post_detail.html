@@ -17,5 +17,7 @@
         <p>{{ post.body }}</p>
     </div>
     <hr>
-    <a class="back" href="{% url 'home' %}">Back</a>
+    <p><a class="back" href="{% url 'post_edit' post.pk%}" title="Edit post">Edit post</a>
+    <p><a class="back" href="{% url 'post_delete' post.pk %}" title="Delete post">Delete post</a></p>
+    <p><a class="back" href="{% url 'home' %}">Back</a></p>
 {% endblock content %}
