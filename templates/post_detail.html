@@ -8,7 +8,14 @@
 {% block content %}
     <div class="post-entry">
         <h2>{{ post.title }}</h2>
-        <p>{{ post.category }}</p>
+        <p> Категории:
+            {% for category in post.category.all%}
+                {{ category }}
+            {% endfor category %}
+        </p>
+        <br>
         <p>{{ post.body }}</p>
     </div>
+    <hr>
+    <a class="back" href="{% url 'home' %}">Back</a>
 {% endblock content %}

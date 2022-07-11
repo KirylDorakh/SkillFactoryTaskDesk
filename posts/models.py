@@ -3,6 +3,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.urls import reverse
+
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,6 +31,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def preview(self):
+        return self.body[:120] + "..."
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
+
+    # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с постом
+    # def get_absolute_url(self):
+    #     return f'/news/{self.id}'
 
 
 class Comment(models.Model):
