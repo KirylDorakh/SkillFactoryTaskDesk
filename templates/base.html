@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
-{#    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">#}
+    {#    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">#}
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
     <meta charset="UTF-8">
@@ -35,6 +35,16 @@
         </div>
     </header>
     <main>
+        <div class="login">
+            {% if user.is_authenticated %}
+                <p>Hi {{ user.username }}</p>
+                <p><a href="{% url 'logout' %}">Log out</a></p>
+            {% else %}
+                <p>You are not logged in.</p>
+                <a href="{%url 'login'%}">Log In</a>
+            {% endif %}
+        </div>
+        <hr>
         {% block content %}
         {% endblock content %}
     </main>
