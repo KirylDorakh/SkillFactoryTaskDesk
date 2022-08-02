@@ -8,5 +8,7 @@ urlpatterns = [
     path('', include('posts.urls')),
 
     # accounts
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    # for sign up, need to be directly below built-up auth app
+    path('accounts/', include('accounts.urls'))
 ]

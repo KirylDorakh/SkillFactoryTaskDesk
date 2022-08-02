@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # Main
     'posts',
-
+    # Sign Up
     'accounts',
-
+    # Flatpages
     'django.contrib.sites',
     'django.contrib.flatpages',
 ]
