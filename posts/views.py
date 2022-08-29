@@ -6,6 +6,9 @@ from django.urls import reverse_lazy
 
 from .models import Post
 
+# WYSIWYG Editor
+from .forms import PostCreateForm, PostUpdateForm
+
 
 class PostListView(ListView):
     model = Post
@@ -21,13 +24,15 @@ class PostDetailView(DetailView):
 class PostCreateView(CreateView):
     model = Post
     template_name = 'post_new.html'
-    fields = ['title', 'body', 'category', 'author']
+    form_class = PostCreateForm
+    # fields = ['title', 'body', 'category', 'author']
 
 
 class PostUpdateView(UpdateView):
     model = Post
     template_name = 'post_edit.html'
-    fields = ['title', 'body', 'category']
+    form_class = PostUpdateForm
+    # fields = ['title', 'body', 'category']
 
 
 class PostDeleteView(DeleteView):

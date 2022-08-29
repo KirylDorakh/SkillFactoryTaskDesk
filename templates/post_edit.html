@@ -8,8 +8,8 @@
 {% block content %}
     <h1>Edit post</h1>
     <form method="post" action="">
-        {% csrf_token %} }}
-        {{ form.as_p }}
+        {% csrf_token %}
+        {{ form.as_p|safe }}
         <input type="submit" value="update">
     </form>
     <hr>

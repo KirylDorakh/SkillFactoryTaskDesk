@@ -14,7 +14,7 @@
             {% endfor category %}
         </p>
         <br>
-        <p>{{ post.body }}</p>
+        <p>{{ post.body | safe}}</p>
     </div>
     <hr>
     <p><a class="back" href="{% url 'post_edit' post.pk%}" title="Edit post">Edit post</a>

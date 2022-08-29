@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     # Flatpages
     'django.contrib.sites',
     'django.contrib.flatpages',
+
+    # WYSIWYG Editor
+    'django_summernote',
 ]
 
 SITE_ID = 1
@@ -127,18 +130,28 @@ USE_TZ = True
 
 # Static files (css, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR/'static'
 ]
+# collectstatic
+STATIC_ROOT = STATIC_ROOT = BASE_DIR/'staticfiles'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Registration
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# WYSIWYG Editor
+MEDIA_URL= '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SUMMERNOTE_THEME = 'bs4'
+
