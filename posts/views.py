@@ -12,31 +12,32 @@ from .forms import PostCreateForm, PostUpdateForm
 
 class PostListView(ListView):
     model = Post
-    template_name = 'home.html'
-    content_object_name = 'all_posts_list'
+    context_object_name = 'posts'
+    template_name = 'posts/home.html'
 
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    context_object_name = 'post'
+    template_name = 'posts/post_detail.html'
 
 
 class PostCreateView(CreateView):
     model = Post
-    template_name = 'post_new.html'
+    template_name = 'posts/post_new.html'
     form_class = PostCreateForm
     # fields = ['title', 'body', 'category', 'author']
 
 
 class PostUpdateView(UpdateView):
     model = Post
-    template_name = 'post_edit.html'
+    template_name = 'posts/post_edit.html'
     form_class = PostUpdateForm
     # fields = ['title', 'body', 'category']
 
 
 class PostDeleteView(DeleteView):
     model = Post
-    template_name = 'post_delete.html'
+    template_name = 'posts/post_delete.html'
     success_url = reverse_lazy('home')
 

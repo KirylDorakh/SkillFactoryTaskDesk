@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party
+    "crispy_forms",
     # Main
     'posts',
     # Sign Up
@@ -45,7 +47,6 @@ INSTALLED_APPS = [
     # Flatpages
     'django.contrib.sites',
     'django.contrib.flatpages',
-
     # WYSIWYG Editor
     'django_summernote',
 ]
@@ -149,7 +150,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # WYSIWYG Editor
-MEDIA_URL= '/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'

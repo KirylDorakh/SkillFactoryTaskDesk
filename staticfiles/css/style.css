@@ -122,19 +122,17 @@ main {
     font-weight: 400;
 }
 
-.post-entry h2 a:hover{
+.post-entry h2 a:hover {
     color: red;
 }
 
-.back{
+.back {
     text-decoration: none;
     color:#101010;
 }
 
-.back:hover{
-    color:red
+.back:hover {
+    color: red;
 }
 
-.login{
 
-}

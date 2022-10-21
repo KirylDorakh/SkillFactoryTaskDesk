@@ -25,26 +25,35 @@
                             <p class="scale">About</p>
                         </a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="pages">
+                        <a class="nav-link" href="{% url 'logout' %}" title="log out">
+                            <p class="scale">Log Out</p>
+                        </a>
+                    </li>
                     <li class="pages">
                         <a class="item" href="{% url 'post_new' %}" title="create new post">
                             <p class="scale">+ New Post</p>
                         </a>
                     </li>
+                    {% else %}
+                    <li class="pages">
+                        <a class="item" href="{% url 'login' %}" title="log in">
+                            <p class="scale">Log In</p>
+                        </a>
+                    </li>
+                    <li class="pages">
+                        <a class="item" href="{% url 'signup' %}" title="sign up">
+                            <p class="scale">Sign Up</p>
+                        </a>
+                    </li>
+                    {% endif %}
+
                 </ul>
             </nav>
         </div>
     </header>
     <main>
-        <div class="login">
-            {% if user.is_authenticated %}
-                <p>Hi, {{ user.username }}</p>
-                <p><a href="{% url 'logout' %}">Log out</a></p>
-            {% else %}
-                <p>You are not logged in.</p>
-                <a href="{%url 'login'%}">Log In</a>
-            {% endif %}
-        </div>
-        <hr>
         {% block content %}
         {% endblock content %}
     </main>
