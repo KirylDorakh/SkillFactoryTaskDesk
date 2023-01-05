@@ -9,7 +9,7 @@
     {% for post in posts %}
         <div class="post-entry">
             <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-            <p>Это объявления для: {% for category in post.category.all %}
+            <p>Объявление для: {% for category in post.category.all %}
                 {{ category }}
             {% endfor %}</p>
             <p>Автор: {{ post.author }}</p>

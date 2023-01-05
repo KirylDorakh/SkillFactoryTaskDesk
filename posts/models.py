@@ -33,7 +33,7 @@ class Post(models.Model):
         return self.title
 
     def preview(self):
-        return self.body[:10] + "..."
+        return self.body[3:15] + "..."
 
     def get_absolute_url(self):
         return reverse('post_detail', args=[str(self.id)])

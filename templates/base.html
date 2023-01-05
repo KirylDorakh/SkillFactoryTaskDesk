@@ -14,44 +14,30 @@
 </head>
 <body>
     <header>
-        <div class="inner_header">
-            <div class="logo_container">
-                <a class='home' href="{% url 'home' %}" title="Home page"><h1>BEST<span>mmorpg</span></h1></a>
-            </div>
-            <nav>
-                <ul class="navigation">
-                    <li class="pages">
-                        <a class="item" href="/about/" title="about app">
-                            <p class="scale">About</p>
-                        </a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="pages">
-                        <a class="nav-link" href="{% url 'logout' %}" title="log out">
-                            <p class="scale">Log Out</p>
-                        </a>
-                    </li>
-                    <li class="pages">
-                        <a class="item" href="{% url 'post_new' %}" title="create new post">
-                            <p class="scale">+ New Post</p>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li class="pages">
-                        <a class="item" href="{% url 'login' %}" title="log in">
-                            <p class="scale">Log In</p>
-                        </a>
-                    </li>
-                    <li class="pages">
-                        <a class="item" href="{% url 'signup' %}" title="sign up">
-                            <p class="scale">Sign Up</p>
-                        </a>
-                    </li>
-                    {% endif %}
-
-                </ul>
-            </nav>
-        </div>
+        <a class='logo' href="{% url 'home' %}" title="Home page"><h1>BEST<span>mmorpg</span></h1></a>
+        <nav>
+            <ul class="navigation">
+                <li class="nav_page">
+                    <a class="item" href="/about/" title="about app">About</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav_page">
+                    <a class="item" href="#">Account +</a>
+                    <ul class="menu">
+                        <li class="bar"><a class="secret" href="#" title="new post">New post</a></li>
+                        <li class="bar"><a class="secret" href="{% url 'logout' %}" title="log out">Log out</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav_page">
+                    <a class="item" href="{% url 'login' %}" title="log in">Log In</a>
+                </li>
+                <li class="nav_page">
+                    <a class="item" href="{% url 'signup' %}" title="sign up">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
     <main>
         {% block content %}
