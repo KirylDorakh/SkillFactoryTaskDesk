@@ -25,15 +25,15 @@
                     <a class="item" href="#">Account +</a>
                     <ul class="menu">
                         <li class="bar"><a class="secret" href="#" title="new post">New post</a></li>
-                        <li class="bar"><a class="secret" href="{% url 'logout' %}" title="log out">Log out</a></li>
+                        <li class="bar"><a class="secret" href="{% url 'account_logout' %}" title="log out">Log out</a></li>
                     </ul>
                 </li>
                 {% else %}
                 <li class="nav_page">
-                    <a class="item" href="{% url 'login' %}" title="log in">Log In</a>
+                    <a class="item" href="{% url 'account_login' %}" title="log in">Log In</a>
                 </li>
                 <li class="nav_page">
-                    <a class="item" href="{% url 'signup' %}" title="sign up">Sign Up</a>
+                    <a class="item" href="{% url 'account_signup' %}" title="sign up">Sign Up</a>
                 </li>
                 {% endif %}
             </ul>
