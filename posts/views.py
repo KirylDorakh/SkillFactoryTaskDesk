@@ -12,8 +12,10 @@ from .forms import PostCreateForm, PostUpdateForm
 
 class PostListView(ListView):
     model = Post
+    ordering = '-post_time'
     context_object_name = 'posts'
     template_name = 'posts/home.html'
+    paginate_by = 5
 
 
 class PostDetailView(DetailView):

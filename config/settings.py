@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     # WYSIWYG Editor
     'django_summernote',
+
+    # custom filters
+    'django_filters',
 ]
 
 SITE_ID = 1
@@ -174,7 +177,7 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",  # new
 )
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False

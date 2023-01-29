@@ -118,6 +118,10 @@ main {
     color: red;
 }
 
+.text {
+    font-size: 32px;
+}
+
 .back{
     color:#101010;
 }

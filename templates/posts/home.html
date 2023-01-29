@@ -1,20 +1,49 @@
 {% extends 'base.html' %}
 
+{#{% load custom_filters %}#}
+
 {% block title %}
     Home
 {% endblock title %}
 
 {% block content %}
-    <h4>Всего объявлений: {{ posts|length }} </h4>
-    {% for post in posts %}
+    <h4>Всего объявлений на странице: {{ posts|length }} </h4>
+
+    {% if posts %}
+        {% for post in posts %}
         <div class="post-entry">
             <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-            <p>Объявление для: {% for category in post.category.all %}
-                {{ category }}
-            {% endfor %}</p>
+            <p>Объявление для: {% for category in post.category.all %} {{ category }} {% endfor %}</p>
+            <br>
+            <p class="text">{{ post.body | safe | truncatechars:30}}</p>
+            <br>
+            <p>Дата публикации: {{ post.post_time | date:'d-M-Y'}}</p>
             <p>Автор: {{ post.author }}</p>
-            {#<p>{{ post.body | safe}}</p>#}
         </div>
         <hr>
-    {% endfor %}
+        {% endfor %}
+
+
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a>{{ num }}</a>
+                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">>>></a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
 {% endblock content %}
