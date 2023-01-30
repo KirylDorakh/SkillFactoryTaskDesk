@@ -7,13 +7,15 @@ class PostFilter(FilterSet):
         model = Post
         fields = {
             'post_time': ['gt'],
-            'headline': ['icontains'],
+            'title': ['icontains'],
             'author': ['exact'],
+            'category': ['exact'],
         }
 
-class CategoryFilter(FilterSet):
-    class Meta:
-        model = Post
-        fields = {
-            'categories'
-        }
+
+# class CategoryFilter(FilterSet):
+#     class Meta:
+#         model = Post
+#         fields = {
+#             'category'
+#         }

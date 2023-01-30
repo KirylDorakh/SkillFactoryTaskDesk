@@ -18,5 +18,5 @@ class PostAdmin(SummernoteModelAdmin):
 admin.site.register(Post, PostAdmin)
 
 # admin.site.register(Post)
-# admin.site.register(Author)
-# admin.site.register(Category)
+admin.site.register(Author)
+admin.site.register(Category)

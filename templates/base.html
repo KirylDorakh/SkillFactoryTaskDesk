@@ -22,7 +22,7 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav_page">
-                    <a class="item" href="#">Account +</a>
+                    <a class="item" href="#"> Hi, {{ user }}! ▼</a>
                     <ul class="menu">
                         <li class="bar"><a class="secret" href="{% url 'post_new' %}" title="new post">New post</a></li>
                         <li class="bar"><a class="secret" href="{% url 'account_logout' %}" title="log out">Log out</a></li>
