@@ -4,13 +4,28 @@
 {% load custom_tags %}
 
 {% block title %}
-    Home
+    Search posts
 {% endblock title %}
 
 {% block content %}
-    <h4>Всего объявлений на странице: {{ posts|length }} </h4>
-    <br>
+    {#  Search, D4 Filters  #}
+    <h2>Поиск</h2>
+    <form action="" method="get">
+{#        {{ filterset.form.non_field_errors }}#}
+{##}
+{#        {{ filterset.form.name__icontains.errors }}#}
+{#        <label for="{{ filterset.form.title__icontains.id_for_label }}">Оглавление содержит:</label>#}
+{#        <input#}
+{#            id="{{ filterset.form.title__icontains.id }}"#}
+{#            name="{{ filterset.form.title__icontains.name }}"#}
+{#            value="{{ filterset.form.title__icontains.value }}"#}
+{#            class="form-control"#}
+{#        >#}
+         {{filterset.form.as_p}}
+        <input type="submit" value="Найти"/>
+    </form>
     <hr>
+    <h4>Всего объявлений на странице: {{ posts|length }} </h4>
 
 {#  Main  #}
     {% if posts %}

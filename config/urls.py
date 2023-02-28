@@ -14,8 +14,8 @@ urlpatterns = [
     # accounts
     # path('accounts/', include('django.contrib.auth.urls')),
     # for sign up, need to be directly below built-up auth app
-    # path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
 
     # WYSIWYG Editor
     path('summernote/', include('django_summernote.urls')),

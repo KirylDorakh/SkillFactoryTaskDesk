@@ -12,12 +12,23 @@ from .forms import PostCreateForm, PostUpdateForm
 # D4 filters
 from .filters import PostFilter
 
+# D5 Authorization
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class PostListView(ListView):
     model = Post
     ordering = '-post_time'
     context_object_name = 'posts'
     template_name = 'posts/home.html'
+    paginate_by = 5
+
+
+class PostSearchList(LoginRequiredMixin, ListView):
+    model = Post
+    ordering = '-post_time'
+    context_object_name = 'posts'
+    template_name = 'posts/search.html'
     paginate_by = 5
 
     # D4 (filter)
@@ -38,22 +49,24 @@ class PostDetailView(DetailView):
     template_name = 'posts/post_detail.html'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/post_new.html'
     form_class = PostCreateForm
     # fields = ['title', 'body', 'category', 'author']
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'posts/post_edit.html'
     form_class = PostUpdateForm
     # fields = ['title', 'body', 'category']
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'posts/post_delete.html'
     success_url = reverse_lazy('home')
+
+
 
