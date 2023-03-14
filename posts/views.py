@@ -53,7 +53,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/post_new.html'
     form_class = PostCreateForm
-    # fields = ['title', 'body', 'category', 'author']
+    # fields = ['title', 'body', 'category']
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):

@@ -166,9 +166,11 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 SUMMERNOTE_THEME = 'bs4'
 
 # allauth
+AUTH_USER_MODEL = "accounts.CustomUser"
+
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
-LOGIN_URL = 'accounts/login/'
+LOGIN_URL = "accounts/login/"
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`

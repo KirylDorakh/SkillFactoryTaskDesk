@@ -1,17 +1,21 @@
 from datetime import datetime
 
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
 from django.urls import reverse
 
 
-class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        author_id = str(self.user.username)
-        return author_id
+# class Author(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         author_id = str(self.user.username)
+#         return author_id
+#
+#     def get_absolute_url(self):
+#         return reverse('author-detail', kwargs={'pk': self.pk})
 
 
 class Category(models.Model):
@@ -22,7 +26,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     body = models.TextField()
     post_time = models.DateTimeField(auto_now_add=True)
@@ -45,7 +49,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     comment_text = models.TextField()
     comment_time = models.DateTimeField(auto_now_add=True)

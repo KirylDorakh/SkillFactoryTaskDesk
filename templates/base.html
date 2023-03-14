@@ -27,7 +27,8 @@
                 <li class="nav_page">
                     <a class="item" href="#"> Hi, {{ user.username }}! ▼</a>
                     <ul class="menu">
-                        <li class="bar"><a class="secret" href="{% url 'post_new' %}" title="new post">New post</a></li>
+                        <li class="bar"><a class="secret" href="{% url 'post_new' %}" title="new post">New Post</a></li>
+                        <li class="bar"><a class="secret" href="{% url 'user_posts' %}" title="user posts">My Posts</a></li>
                         <li class="bar"><a class="secret" href="{% url 'profile' user.id %}" title="profile">Profile</a></li>
                         <li class="bar"><a class="secret" href="{% url 'account_logout' %}" title="log out">Log out</a></li>
                     </ul>
