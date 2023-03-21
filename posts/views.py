@@ -10,7 +10,7 @@ from .models import Post
 from .forms import PostCreateForm, PostUpdateForm
 
 # D4 filters
-from .filters import PostFilter
+from .filters import PostFilter, UserPostsFilter
 
 # D5 Authorization
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,6 +22,19 @@ class PostListView(ListView):
     context_object_name = 'posts'
     template_name = 'posts/home.html'
     paginate_by = 5
+
+
+class UserPostListView(LoginRequiredMixin, ListView):
+    model = Post
+    ordering = '-post_time'
+    context_object_name = 'posts'
+    template_name = 'posts/user_posts.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(author=self.request.user)
+        return qs
 
 
 class PostSearchList(LoginRequiredMixin, ListView):
@@ -53,7 +66,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/post_new.html'
     form_class = PostCreateForm
-    # fields = ['title', 'body', 'category']
+    success_url = reverse_lazy('user_posts')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):

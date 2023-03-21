@@ -7,13 +7,15 @@ from django_summernote.widgets import SummernoteWidget
 # D4 forms
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth import get_user_model
+
 
 class PostCreateForm(forms.ModelForm):
     body = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Post
-        fields = ['title', 'author', 'body', 'category']
+        fields = ['title', 'body', 'category']
 
 
 class PostUpdateForm(forms.ModelForm):

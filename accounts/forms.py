@@ -12,6 +12,10 @@ class CustomUserUpdateForm(UserChangeForm):
             'username',
         )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.pop('password')
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:

@@ -159,11 +159,11 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # WYSIWYG Editor
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
-SUMMERNOTE_THEME = 'bs4'
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SUMMERNOTE_THEME = "bs4"
 
 # allauth
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -180,7 +180,7 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
@@ -189,7 +189,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_EMAIL_VERIFICATION = "none"
 
-DEFAULT_FROM_EMAIL = 'admin@bestmmo.com'
+DEFAULT_FROM_EMAIL = "admin@bestmmo.com"
 

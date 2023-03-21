@@ -7,14 +7,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # bulletin board
+    # task desk
     path('pages/', include('django.contrib.flatpages.urls')),
     path('', include('posts.urls')),
 
     # accounts
     # path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
 
     # WYSIWYG Editor
     path('summernote/', include('django_summernote.urls')),

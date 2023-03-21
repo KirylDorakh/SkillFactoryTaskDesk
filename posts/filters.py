@@ -34,3 +34,16 @@ class PostFilter(FilterSet):
 #         fields = {
 #             'category'
 #         }
+
+
+class UserPostsFilter(FilterSet):
+    class Meta:
+        model = Post
+        fields = ['author']
+
+    @property
+    def qs(self):
+        parent = super().qs
+        author = getattr(self.request, 'user', None)
+
+        return parent.filter(author=author)
