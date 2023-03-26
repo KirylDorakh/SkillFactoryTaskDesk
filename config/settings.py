@@ -13,6 +13,13 @@ import os
 
 from pathlib import Path
 
+# Environment Variables
+from environs import Env
+
+env = Env()
+env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*f$@y%cv!9u+4$g%zhf5((kz4&pi2oj70b!e5q0g&$n-e_jh6)'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -61,6 +68,9 @@ INSTALLED_APPS = [
 
     # custom filters
     'django_filters',
+
+    # debug
+    'debug_toolbar',
 ]
 
 SITE_ID = 1
@@ -76,7 +86,13 @@ MIDDLEWARE = [
 
     # flatpages
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+
+    # debug
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+# debug
+INTERNAL_IPS = ['127.0.0.1']
 
 ROOT_URLCONF = 'config.urls'
 
@@ -170,7 +186,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
-LOGIN_URL = "accounts/login/"
+LOGIN_URL = "/accounts/login/"
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -192,4 +208,11 @@ ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_EMAIL_VERIFICATION = "none"
 
 DEFAULT_FROM_EMAIL = "admin@bestmmo.com"
+
+# Send email
+EMAIL_HOST = env.str('EMAIL_HOST')
+EMAIL_PORT = 465
+EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
 

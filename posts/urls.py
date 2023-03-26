@@ -6,6 +6,8 @@ from .views import (PostListView,
                     PostDeleteView,
                     PostSearchList,
                     UserPostListView,
+
+                    CustomPermissionDeniedView,
                     )
 
 urlpatterns = [
@@ -16,4 +18,6 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
     path('search/', PostSearchList.as_view(), name='search'),
     path('user_posts/', UserPostListView.as_view(), name='user_posts'),
+
+    path('permission_denied/', CustomPermissionDeniedView.as_view(), name='permission_denied')
 ]

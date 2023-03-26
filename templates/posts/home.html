@@ -16,13 +16,25 @@
     {% if posts %}
         {% for post in posts %}
         <div class="post-entry">
-            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title | hide_forbidden}}</a></h2>
+{#          <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title | hide_forbidden}}</a></h2>#}
+            <h2><a href="{{ post.get_absolute_url }}">{{ post.title | hide_forbidden}}</a></h2>
             <p>Объявление для: {% for category in post.category.all %} {{ category }} {% endfor %}</p>
             <br>
             <p class="text">{{ post.body | safe | truncatechars:50}}</p>
             <br>
             <p>Дата публикации: {{ post.post_time | date:'d-M-Y'}}</p>
             <p>Автор: {{ post.author }}</p>
+            <div class="post-footer">
+                {%  for comment in post.comments.all %}
+                    <br>
+                    <p>
+                        <span class="comment">
+                            {{ comment.user }}
+                        </span>
+                        {{ comment }}
+                    </p>
+                {% endfor %}
+            </div>
         </div>
         <hr>
         {% endfor %}

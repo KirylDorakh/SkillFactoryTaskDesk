@@ -13,7 +13,11 @@ from .forms import PostCreateForm, PostUpdateForm
 from .filters import PostFilter, UserPostsFilter
 
 # D5 Authorization
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+# permissions
+from django.views import View
+from django.shortcuts import redirect
 
 
 class PostListView(ListView):
@@ -73,17 +77,31 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = 'posts/post_edit.html'
     form_class = PostUpdateForm
     # fields = ['title', 'body', 'category']
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
 
-class PostDeleteView(LoginRequiredMixin, DeleteView):
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'posts/post_delete.html'
     success_url = reverse_lazy('home')
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+
+class CustomPermissionDeniedView(View):
+    template_name = 'posts/permission_denied.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
 
 

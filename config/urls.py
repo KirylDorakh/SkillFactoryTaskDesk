@@ -18,6 +18,9 @@ urlpatterns = [
 
     # WYSIWYG Editor
     path('summernote/', include('django_summernote.urls')),
+
+    # debug
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 # WYSIWYG Editor
