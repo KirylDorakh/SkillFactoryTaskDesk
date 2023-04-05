@@ -8,37 +8,30 @@
 {% endblock title %}
 
 {% block content %}
-    <h4>Всего объявлений на странице: {{ posts|length }} </h4>
-    <br>
-    <hr>
+    <h1>Tasks</h1>
+    <h4>Total per page: {{ posts|length }} </h4>
 
 {#  Main  #}
     {% if posts %}
-        {% for post in posts %}
-        <div class="post-entry">
-{#          <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title | hide_forbidden}}</a></h2>#}
-            <h2><a href="{{ post.get_absolute_url }}">{{ post.title | hide_forbidden}}</a></h2>
-            <p>Объявление для: {% for category in post.category.all %} {{ category }} {% endfor %}</p>
-            <br>
-            <p class="text">{{ post.body | safe | truncatechars:50}}</p>
-            <br>
-            <p>Дата публикации: {{ post.post_time | date:'d-M-Y'}}</p>
-            <p>Автор: {{ post.author }}</p>
-            <div class="post-footer">
-                {%  for comment in post.comments.all %}
-                    <br>
-                    <p>
-                        <span class="comment">
-                            {{ comment.user }}
-                        </span>
-                        {{ comment }}
-                    </p>
-                {% endfor %}
-            </div>
-        </div>
-        <hr>
-        {% endfor %}
+        <div class="posts">
+            {% for post in posts %}
+                <a href="{{ post.get_absolute_url }}">
+                    <div class="post-entry">
+                        <h2 class="post-title">{{ post.title | hide_forbidden}}</h2>
+                        <div class="post-time"><p>{{ post.post_time | date:'d-M-Y'}}</p></div>
 
+                        <p class="post-category">Category: <span>{% for category in post.category.all %} {{ category }}{% endfor %}</span></p>
+                        {% with truncated_body=post.body|striptags|safe|truncatechars:50 %}
+                            <div class="post-text"><p>{{ truncated_body }}</p></div>
+                        {% endwith %}
+                        <p class="post-author">Author: {{ post.author }}</p>
+                        <div class="post-footer">
+                            <p>Responses: {{ post.comments.count }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
 {# Pagination #}
         {% if is_paginated %}
 
@@ -62,7 +55,8 @@
         {% endif %}
 
     {% else %}
-        <h3>Объявлений нет</h3>
+        <h3>No Tasks</h3>
     {% endif %}
 
 {% endblock content %}
+

@@ -17,6 +17,15 @@ class CustomUserUpdateForm(UserChangeForm):
         self.fields.pop('password')
 
 
+class CustomUserAdminForm(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'email',
+            'username',
+        )
+
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = get_user_model()

@@ -6,6 +6,8 @@ from accounts.models import CustomUser
 
 from django.urls import reverse
 
+from django_summernote.fields import SummernoteTextField
+
 
 # class Author(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -28,7 +30,7 @@ class Category(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    body = SummernoteTextField()
     post_time = models.DateTimeField(auto_now_add=True)
 
     category = models.ManyToManyField(Category)
@@ -62,7 +64,5 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', args=[str(self.id)])
-
-
 
 

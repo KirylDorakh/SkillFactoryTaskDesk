@@ -9,20 +9,26 @@
 
 {% block content %}
     <h1>My Posts</h1>
-    <br>
 {#  Main  #}
     {% if posts %}
-        {% for post in posts %}
-            <div class="post-entry">
-                <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title | hide_forbidden}}</a></h2>
-                <p>Объявление для: {% for category in post.category.all %} {{ category }} {% endfor %}</p>
-                <br>
-                <p class="text">{{ post.body | safe | truncatechars:50}}</p>
-                <br>
-                <p>Дата публикации: {{ post.post_time | date:'d-M-Y'}}</p>
-                </div>
-                <hr>
+        <div class="posts">
+            {% for post in posts %}
+                <a href="{{ post.get_absolute_url }}">
+                    <div class="post-entry">
+                        <h2 class="post-title">{{ post.title | hide_forbidden}}</h2>
+                        <div class="post-time"><p>{{ post.post_time | date:'d-M-Y'}}</p></div>
+
+                        <p class="post-category">Category: <span>{% for category in post.category.all %} {{ category }}{% endfor %}</span></p>
+                        {% with truncated_body=post.body|striptags|safe|truncatechars:50 %}
+                            <div class="post-text"><p>{{ truncated_body }}</p></div>
+                        {% endwith %}
+                        <div class="post-footer">
+                            <p>Responses: {{ post.comments.count }}</p>
+                        </div>
+                    </div>
+                </a>
             {% endfor %}
+        </div>
 {# Pagination #}
         {% if is_paginated %}
 
@@ -46,9 +52,10 @@
         {% endif %}
 
     {% else %}
-        <p>You don't have posts yet</p>
-        <br>
-        <a href="{% url 'post_new'%}" class="button">Create Your First Post</a>
+        <div class="footer">
+            <p>You don't have posts yet</p>
+            <a href="{% url 'post_new'%}" class="button">Create Your First Post</a>
+        </div>
     {% endif %}
 
 {% endblock content %}

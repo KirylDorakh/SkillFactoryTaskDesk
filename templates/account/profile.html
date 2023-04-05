@@ -8,11 +8,11 @@
 
 
 {% block content %}
-    <div class="post-entry">
+    <div class="profile">
         <h2>{{ user.username}}</h2>
         <p>Email: {{ user.email}}</p>
+
+        <p><a class="button" href="{% url 'profile_edit' user.pk%}" title="Edit information">Edit Profile</a>
+        <p><a class="button" href="{% url 'home' %}">Back</a></p>
     </div>
-    <hr>
-    <p><a class="back" href="{% url 'profile_edit' user.pk%}" title="Edit information">Edit Profile</a>
-    <p><a class="back" href="{% url 'home' %}">Back</a></p>
 {% endblock content %}

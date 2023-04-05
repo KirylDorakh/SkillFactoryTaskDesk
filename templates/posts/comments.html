@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+    My posts
+{% endblock title %}
+
+{% block content %}
+    <h1>Search</h1>
+        <form action="" method="get">
+             {{filterset.form.as_p}}
+            <input type="submit" value="Search"/>
+        </form>
+
+    <h1>Responses to my tasks</h1>
+
+    {% if posts %}
+        <div class="post">
+            {% for post in posts %}
+                <div class="comment_detail">
+                    <h2 class="post-title">Task Responses: <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                    <div class="post-time">
+                        <p>Task Category:
+                        {% for category in post.category.all %}
+                            {{ category }}
+                        {% endfor %}
+                        </p>
+                    </div>
+                    <div class="comment-list">
+                    {% if post.comments.count %}
+                        {%  for comment in post.comments.all %}
+                            <ul>
+                                <li class="comment">
+                                    <p class="comment-user">Responded user: {{ comment.user }}</p>
+                                    <p class="comment-text">{{ comment }}</p>
+                                    <p class="comment-time">{{ comment.comment_time | date:'d-M-Y' }}</p>
+                                    <div class="comment-btn">
+                                        <button class="btn">Accept</button>
+                                        <a class="button" href="{% url 'comment_delete' comment.pk %}" title="Delete comment">
+                                            Delete
+                                        </a>
+                                    </div>
+
+                                </li>
+                                <hr>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <p>No Responses yet</p>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Pagination #}
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a href="?{% url_replace page=1 %}">First</a>
+                <a href="?{% url_replace page=page_obj.previous_page_number %}"><<<</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a>{{ num }}</a>
+                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                    <a href="?{% url_replace page=num %}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?{% url_replace page=page_obj.next_page_number  %}">>>></a>
+                <a href="?{% url_replace page=page_obj.paginator.num_pages %}">Last</a>
+            {% endif %}
+        {% endif %}
+
+
+    {% else %}
+        <div class="footer">
+            <p>You don't have posts yet</p>
+            <a href="{% url 'post_new'%}" class="button">Create Your First Post</a>
+        </div>
+    {% endif %}
+
+{% endblock content %}

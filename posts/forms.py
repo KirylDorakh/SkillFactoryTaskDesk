@@ -1,8 +1,9 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 # WYSIWYG Editor
 from django_summernote.widgets import SummernoteWidget
+from django_summernote.fields import SummernoteTextFormField
 
 # D4 forms
 from django.core.exceptions import ValidationError
@@ -11,7 +12,7 @@ from django.contrib.auth import get_user_model
 
 
 class PostCreateForm(forms.ModelForm):
-    body = forms.CharField(widget=SummernoteWidget())
+    body = SummernoteTextFormField()
 
     class Meta:
         model = Post
@@ -19,11 +20,20 @@ class PostCreateForm(forms.ModelForm):
 
 
 class PostUpdateForm(forms.ModelForm):
-    body = forms.CharField(widget=SummernoteWidget())
+    body = SummernoteTextFormField()
 
     class Meta:
         model = Post
         fields = ['title', 'body', 'category']
+
+
+class CommentCreateForm(forms.ModelForm):
+    comment_text = forms.CharField(label='Leave your response here',
+                                   widget=forms.Textarea)
+
+    class Meta:
+        model = Comment
+        fields = ['comment_text']
 
 
 # D4 Forms

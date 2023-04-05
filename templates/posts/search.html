@@ -9,7 +9,7 @@
 
 {% block content %}
     {#  Search, D4 Filters  #}
-    <h2>Поиск</h2>
+    <h1>Search</h1>
     <form action="" method="get">
 {#        {{ filterset.form.non_field_errors }}#}
 {##}
@@ -22,25 +22,32 @@
 {#            class="form-control"#}
 {#        >#}
          {{filterset.form.as_p}}
-        <input type="submit" value="Найти"/>
+        <input type="submit" value="Search"/>
     </form>
     <hr>
-    <h4>Всего объявлений на странице: {{ posts|length }} </h4>
+    <h4>Total per page: {{ posts|length }} </h4>
 
 {#  Main  #}
     {% if posts %}
-        {% for post in posts %}
-        <div class="post-entry">
-            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title | hide_forbidden}}</a></h2>
-            <p>Объявление для: {% for category in post.category.all %} {{ category }} {% endfor %}</p>
-            <br>
-            <p class="text">{{ post.body | safe | truncatechars:50}}</p>
-            <br>
-            <p>Дата публикации: {{ post.post_time | date:'d-M-Y'}}</p>
-            <p>Автор: {{ post.author }}</p>
+        <div class="posts">
+            {% for post in posts %}
+                <a href="{{ post.get_absolute_url }}">
+                    <div class="post-entry">
+                        <h2 class="post-title">{{ post.title | hide_forbidden}}</h2>
+                        <div class="post-time"><p>{{ post.post_time | date:'d-M-Y'}}</p></div>
+
+                        <p class="post-category">Category: <span>{% for category in post.category.all %} {{ category }}{% endfor %}</span></p>
+                        {% with truncated_body=post.body|striptags|safe|truncatechars:50 %}
+                            <div class="post-text"><p>{{ truncated_body }}</p></div>
+                        {% endwith %}
+                        <p class="post-author">Аuthor: {{ post.author }}</p>
+                        <div class="post-footer">
+                            <p>Responses: {{ post.comments.count }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
-        <hr>
-        {% endfor %}
 
 {# Pagination #}
         {% if is_paginated %}
@@ -65,7 +72,7 @@
         {% endif %}
 
     {% else %}
-        <h3>Объявлений нет</h3>
+        <h3>No Tasks</h3>
     {% endif %}
 
 {% endblock content %}

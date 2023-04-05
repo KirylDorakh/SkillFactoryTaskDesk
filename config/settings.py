@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # WYSIWYG Editor
+    'django_summernote',
+
     # django-allauth
     'django.contrib.sites',
     'allauth',
@@ -63,8 +66,6 @@ INSTALLED_APPS = [
     # Flatpages
     # 'django.contrib.sites',
     'django.contrib.flatpages',
-    # WYSIWYG Editor
-    'django_summernote',
 
     # custom filters
     'django_filters',

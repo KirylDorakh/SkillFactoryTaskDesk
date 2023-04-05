@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% load custom_filters %}
 
@@ -8,23 +9,88 @@
 
 
 {% block content %}
-    <div class="post-entry">
-        <h2>{{ post.title | hide_forbidden}}</h2>
-        <p>Автор: {{ post.author}}</p>
-        <p> Категории:
-            {% for category in post.category.all%}
-                {{ category }}
-            {% endfor category %}
-        </p>
-        <br>
-        <p>{{ post.body | safe}}</p>
+    <div class="post">
+    <div class="post-detail">
+          <h2 class="post-title">{{ post.title | hide_forbidden}}</h2>
+          <div class="post-time"><p>{{ post.post_time | date:'d-M-Y'}}</p></div>
+
+          <p class="post-category">Category: {% for category in post.category.all %} {{ category }} {% endfor %}</p>
+          <div class="post-text">{{ post.body|safe }}</div>
+{#          {% with post_text=post.body|safe %}#}
+{#              <div class="post-text">#}
+{#                  {{ post_text }}#}
+{#              </div>#}
+{#          {% endwith %}#}
+          <p class="post-author">Author: {{ post.author }}</p>
     </div>
-    <hr>
+    </div>
+
+    <div class="edit">
     {% if post.author == user %}
-        <p><a class="back" href="{% url 'post_edit' post.pk%}" title="Edit post">Edit post</a>
-        <p><a class="back" href="{% url 'post_delete' post.pk %}" title="Delete post">Delete post</a></p>
-        <p><a class="back" href="{% url 'home' %}">Back</a></p>
+        <a class="button" href="{% url 'post_edit' post.pk%}" title="Edit post">Edit post</a>
+        <a class="button" href="{% url 'post_delete' post.pk %}" title="Delete post">Delete post</a>
+
+
+        <div class="comment_detail">
+            <h3 class="post-title">Responses:</h3>
+            <div class="post-time"></div>
+            <div class="comment-list">
+                {% if post.comments.count %}
+                    {%  for comment in post.comments.all %}
+                        <ul>
+                            <li class="comment">
+                                <p class="comment-user">Responded user: {{ comment.user }}</p>
+                                <p class="comment-text">{{ comment }}</p>
+                                <p class="comment-time">{{ comment.comment_time | date:'d-M-Y' }}</p>
+                                <div class="comment-btn">
+                                    <button class="btn">Accept</button>
+                                    <a class="button" href="{% url 'comment_delete' comment.pk %}" title="Delete comment">
+                                        Delete
+                                    </a>
+                                </div>
+                            </li>
+                            <hr>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>No Responses yet</p>
+                {% endif %}
+                </div>
+        </div>
     {% else %}
-        <p>Leave a response</p>
+        <h3>Leave a response:</h3>
+        {% if user.is_authenticated %}
+            <form class="response" method="post">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <input type="submit" value="Save Response">
+            </form>
+        {% else %}
+            <p class="response">Please Log In First</p>
+        {% endif %}
+        <div class="comment_detail">
+            <h3 class="post-title">Responses:</h3>
+            <div class="post-time"></div>
+            <div class="comment-list">
+            {% if post.comments.count %}
+                {%  for comment in post.comments.all %}
+                    <ul>
+                        <li class="comment">
+                            <p class="comment-user">Responded user: {{ comment.user }}</p>
+                            <p class="comment-text">{{ comment }}</p>
+                            <p class="comment-time">{{ comment.comment_time | date:'d-M-Y' }}</p>
+                            <div class="comment-btn">
+                            </div>
+                        </l
+                        <hr>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <p>No Responses yet</p>
+            {% endif %}
+            </div>
+        </div>
     {% endif %}
+    <a class="button" href="{% url 'home' %}">Back</a>
+    </div>
 {% endblock content %}

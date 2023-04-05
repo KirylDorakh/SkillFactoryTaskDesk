@@ -6,6 +6,7 @@
 
 
 {% block content %}
+    <div class="edit">
     <h1>Edit post</h1>
     <form method="post" action="">
         {% csrf_token %}
@@ -13,5 +14,6 @@
         <input type="submit" value="update">
     </form>
     <hr>
-    <a class="back" href="{% url 'post_detail' post.pk%}">Back</a>
+    <a class="button" href="{% url 'post_detail' post.pk%}">Back</a>
+    </div>
 {% endblock content %}

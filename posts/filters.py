@@ -1,6 +1,26 @@
 from django_filters import FilterSet, ModelMultipleChoiceFilter, DateTimeFilter
-from django.forms import DateTimeInput
+from django.forms import DateTimeInput, SelectMultiple
 from .models import Post, Category
+
+
+def my_posts(request):
+    if request is None:
+        return Post.objects.none()
+    user = request.user
+    return Post.objects.filter(author=user)
+
+
+class CommentFilter(FilterSet):
+    title = ModelMultipleChoiceFilter(
+        field_name='title',
+        queryset=my_posts,
+        label='Task title',
+        widget=SelectMultiple(attrs={'class': 'form-control'}),
+    )
+
+    class Meta:
+        model = Post
+        fields = ['title']
 
 
 class PostFilter(FilterSet):
@@ -9,6 +29,7 @@ class PostFilter(FilterSet):
         queryset=Category.objects.all(),
         label='Categories',
         conjoined=True,
+        widget=SelectMultiple(attrs={'class': 'form-control'}),
     )
 
     post_time = DateTimeFilter(
@@ -26,24 +47,3 @@ class PostFilter(FilterSet):
             'title': ['icontains'],
             'author': ['exact'],
         }
-
-
-# class CategoryFilter(FilterSet):
-#     class Meta:
-#         model = Post
-#         fields = {
-#             'category'
-#         }
-
-
-class UserPostsFilter(FilterSet):
-    class Meta:
-        model = Post
-        fields = ['author']
-
-    @property
-    def qs(self):
-        parent = super().qs
-        author = getattr(self.request, 'user', None)
-
-        return parent.filter(author=author)

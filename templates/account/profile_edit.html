@@ -11,12 +11,10 @@
         {{ form.as_p|safe }}
         <input type="submit" value="update">
     </form>
-    <br>
-    <p>If you would like to change password, click the button bellow:</p>
-    <a href="{% url 'profile_change_password'%}" class="button">Change password</a>
-    <br>
-     <br>
-    <hr>
-    <a class="back" href="{% url 'home' %}">Back</a>
+    <div class="footer">
+        <p>If you would like to <span>change password</span>, click the button bellow:</p>
+        <a href="{% url 'profile_change_password'%}" class="button">Change password</a>
+        <a class="button" href="{% url 'home' %}">Back</a>
+    </div>
 {% endblock content %}
 

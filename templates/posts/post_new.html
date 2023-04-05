@@ -5,11 +5,13 @@
 {%  endblock title %}
 
 {%  block content %}
+    <div class="edit">
     <h1>New post</h1>
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post">
+        {% csrf_token %}
         {{ form.as_p|safe }}
         <input type="submit" value="Save">
     </form>
-    <hr>
-    <a class="back" href="{% url 'home' %}">Back</a>
+    <a class="button" href="{% url 'home' %}">Back</a>
+    </div>
 {% endblock content %}
