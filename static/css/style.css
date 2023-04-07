@@ -347,6 +347,11 @@ a.button:hover{
     background-color: #10373E;
 }
 
+a.button span{
+    font-size: 17px;
+    font-weight: 900;
+}
+
 .profile{
     display: grid;
     row-gap: 1vw;
@@ -410,4 +415,8 @@ select.form-control:focus {
   border-color: #80bdff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.pagin{
+    /*display: flex;*/
 }

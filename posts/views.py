@@ -22,6 +22,9 @@ from django.shortcuts import redirect
 # Comment
 from django.shortcuts import get_object_or_404
 
+# send mail
+from django.core.mail import send_mail
+
 
 class PostListView(ListView):
     model = Post
@@ -123,6 +126,15 @@ class PostDetailView(DetailView):
             comment.user = request.user
             comment.post = self.get_object()
             comment.save()
+
+            # send mail
+            send_mail(
+                subject=f'{comment.user} sent a response to the task {comment.post.title}',
+                message=f'{comment.comment_text}',
+                from_email='kiryldorakh@yandex.ru',
+                recipient_list=[f'{comment.post.author.email}']
+            )
+
             return redirect(request.path_info)
         else:
             return render(request, self.template_name, {'post': self.get_object(), 'comment_form': form})
