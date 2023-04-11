@@ -40,11 +40,11 @@
                                         {% if comment.is_responded %}
                                             <button class="res">Accepted</button>
                                         {% else %}
-                                            <a class="button" href="{% url 'comment_response' comment.pk %}" title="Accept comment">
+                                            <a class="button" href="{% url 'comment_response' comment.pk %}?next={{ request.path }}" title="Accept comment">
                                                 Accept
                                             </a>
                                         {% endif %}
-                                        <a class="button" href="{% url 'comment_delete' comment.pk %}" title="Delete comment">
+                                        <a class="button" href="{% url 'comment_delete' comment.pk %}?next={{ request.path }}" title="Delete comment">
                                             Delete
                                         </a>
                                     </div>
@@ -61,26 +61,28 @@
         </div>
 
         {# Pagination #}
+        <div class="pagin">
         {% if is_paginated %}
 
             {% if page_obj.has_previous %}
-                <a href="?{% url_replace page=1 %}">First</a>
-                <a href="?{% url_replace page=page_obj.previous_page_number %}"><<<</a>
+                <a class="button" href="?{% url_replace page=1 %}">First</a>
+                <a class="button" href="?{% url_replace page=page_obj.previous_page_number %}"><<<</a>
             {% endif %}
 
             {% for num in page_obj.paginator.page_range %}
                 {% if page_obj.number == num %}
-                    <a>{{ num }}</a>
+                    <a class="button"><span>{{ num }}</span></a>
                 {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-                    <a href="?{% url_replace page=num %}">{{ num }}</a>
+                    <a class="button" href="?{% url_replace page=num %}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <a href="?{% url_replace page=page_obj.next_page_number  %}">>>></a>
-                <a href="?{% url_replace page=page_obj.paginator.num_pages %}">Last</a>
+                <a class="button" href="?{% url_replace page=page_obj.next_page_number  %}">>>></a>
+                <a class="button" href="?{% url_replace page=page_obj.paginator.num_pages %}">Last</a>
             {% endif %}
         {% endif %}
+        </div>
 
 
     {% else %}

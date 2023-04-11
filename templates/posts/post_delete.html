@@ -10,6 +10,7 @@
         {% csrf_token %}
         <p>Are you sure you want to delete '{{ post.title }}'?</p>
         <input type="submit" value="Confirm">
+        <a class="button" href="{% url 'comments'%}">Back</a>
     </form>
 {% endblock content %}
 
