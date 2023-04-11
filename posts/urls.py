@@ -9,6 +9,7 @@ from .views import (PostListView,
                     CommentsPostListView,
                     CommentCreateView,
                     CommentDeleteView,
+                    CommentResponse,
 
                     CustomPermissionDeniedView,
                     )
@@ -24,6 +25,7 @@ urlpatterns = [
     path('comments/', CommentsPostListView.as_view(), name='comments'),
     path('comment/<int:pk>/new/', CommentCreateView.as_view(), name='comment'),
     path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
+    path('comment/<int:pk>/response/', CommentResponse.as_view(), name='comment_response'),
 
     path('permission_denied/', CustomPermissionDeniedView.as_view(), name='permission_denied')
 ]

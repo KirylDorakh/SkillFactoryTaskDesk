@@ -37,12 +37,17 @@
                                     <p class="comment-text">{{ comment }}</p>
                                     <p class="comment-time">{{ comment.comment_time | date:'d-M-Y' }}</p>
                                     <div class="comment-btn">
-                                        <button class="btn">Accept</button>
+                                        {% if comment.is_responded %}
+                                            <button class="res">Accepted</button>
+                                        {% else %}
+                                            <a class="button" href="{% url 'comment_response' comment.pk %}" title="Accept comment">
+                                                Accept
+                                            </a>
+                                        {% endif %}
                                         <a class="button" href="{% url 'comment_delete' comment.pk %}" title="Delete comment">
                                             Delete
                                         </a>
                                     </div>
-
                                 </li>
                                 <hr>
                             </ul>

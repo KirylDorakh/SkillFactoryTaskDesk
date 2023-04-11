@@ -59,6 +59,8 @@ class Comment(models.Model):
     comment_text = models.TextField()
     comment_time = models.DateTimeField(auto_now_add=True)
 
+    is_responded = models.BooleanField(default=False)
+
     def __str__(self):
         return self.comment_text
 

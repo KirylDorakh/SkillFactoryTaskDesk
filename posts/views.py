@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from .models import Post, Comment
 
 # WYSIWYG Editor
-from .forms import PostCreateForm, PostUpdateForm, CommentCreateForm
+from .forms import PostCreateForm, PostUpdateForm, CommentCreateForm, CommentResponseForm
 
 # D4 filters
 from .filters import PostFilter, CommentFilter
@@ -24,6 +24,20 @@ from django.shortcuts import get_object_or_404
 
 # send mail
 from django.core.mail import send_mail
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+def notify_author(sender, instance, **kwargs):
+    send_mail(
+        subject=f'{instance.title} created successfully',
+        message=f'{instance.author}, your post created successfully',
+        from_email='kiryldorakh@yandex.ru',
+        recipient_list=[f'{instance.author.email}']
+    )
+
+
+post_save.connect(notify_author, sender=Post)
 
 
 class PostListView(ListView):
@@ -63,7 +77,31 @@ class CommentsPostListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+        context['response_form'] = CommentResponseForm()
         return context
+
+
+class CommentResponse(UpdateView):
+    model = Comment
+    template_name = 'posts/comment_response.html'
+    form_class = CommentResponseForm
+    success_url = reverse_lazy('comments')
+
+    def post(self, request, *args, **kwargs):
+        comment = Comment.objects.get(pk=kwargs['pk'])
+        form = CommentResponseForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            # send mail
+            send_mail(
+                subject=f'{comment.post.author} sent accept a response to the task {comment.post.title}',
+                message=f'{comment.user} your response is accepted',
+                from_email='kiryldorakh@yandex.ru',
+                recipient_list=[f'{comment.user.email}']
+            )
+            return super().form_valid(form)
+        else:
+            return render(request, 'posts/comment_response.html', {'form': form, 'comment': comment})
 
 
 class CommentCreateView(CreateView):
@@ -148,6 +186,14 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+
+        # send_mail(
+        #     subject=f'{form.instance.title} created successfully',
+        #     message=f'{form.instance.author}, your post created successfully',
+        #     from_email='kiryldorakh@yandex.ru',
+        #     recipient_list=[f'{form.instance.author.email}']
+        # )
+
         return super().form_valid(form)
 
 

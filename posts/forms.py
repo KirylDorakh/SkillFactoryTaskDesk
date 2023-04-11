@@ -36,6 +36,13 @@ class CommentCreateForm(forms.ModelForm):
         fields = ['comment_text']
 
 
+class CommentResponseForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['is_responded']
+
+
 # D4 Forms
 class PostForm(forms.ModelForm):
     description = forms.CharField(min_length=20)

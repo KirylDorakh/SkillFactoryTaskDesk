@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Accept response
+{% endblock title %}
+
+
+{% block content %}
+    <div class="edit">
+    <h1>Accept response</h1>
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <button class="btn" type="submit" name="is_responded" value="True">Accept Response</button>
+        <a class="button" href="{% url 'comments'%}">Back</a>
+    </form>
+
+    </div>
+{% endblock content %}
