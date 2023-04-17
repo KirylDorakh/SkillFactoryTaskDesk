@@ -6,7 +6,7 @@ from accounts.models import CustomUser
 
 from django.urls import reverse
 
-from django_summernote.fields import SummernoteTextField
+# from django_summernote.fields import SummernoteTextField
 
 
 # class Author(models.Model):
@@ -30,7 +30,8 @@ class Category(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    body = SummernoteTextField()
+    # body = SummernoteTextField()
+    body = models.TextField()
     post_time = models.DateTimeField(auto_now_add=True)
 
     category = models.ManyToManyField(Category)

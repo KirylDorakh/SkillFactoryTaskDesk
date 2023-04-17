@@ -434,3 +434,12 @@ select.form-control:focus {
 .pagin{
     /*display: flex;*/
 }
+
+.pass{
+    display:grid;
+    justify-items: start;
+}
+
+.pass .btn:hover{
+    background-color: #9B342A;
+}

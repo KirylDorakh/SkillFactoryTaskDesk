@@ -3,7 +3,7 @@ from .models import Post, Comment
 
 # WYSIWYG Editor
 from django_summernote.widgets import SummernoteWidget
-from django_summernote.fields import SummernoteTextFormField
+# from django_summernote.fields import SummernoteTextFormField
 
 # D4 forms
 from django.core.exceptions import ValidationError
@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 
 
 class PostCreateForm(forms.ModelForm):
-    body = SummernoteTextFormField()
+    body = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Post
@@ -20,7 +20,7 @@ class PostCreateForm(forms.ModelForm):
 
 
 class PostUpdateForm(forms.ModelForm):
-    body = SummernoteTextFormField()
+    body = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Post
