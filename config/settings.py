@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     # Third-party
     "crispy_forms",
+    'crispy_bootstrap4',
     # Main
     'posts.apps.PostsConfig',
     # Sign Up
@@ -90,6 +91,9 @@ MIDDLEWARE = [
 
     # debug
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+    # allauth
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 # debug
@@ -218,3 +222,5 @@ EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
+# crispy-forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

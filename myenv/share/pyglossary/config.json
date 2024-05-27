@@ -1,0 +1,42 @@
+{
+	"log_time": false,
+	"cleanup": true,
+
+	"auto_sqlite": true,
+	"optimize_memory": false,
+
+	"lower": false,
+	"utf8_check": false,
+	"enable_alts": true,
+	"skip_resources": false,
+
+	"rtl": false,
+	"remove_html": "",
+	"remove_html_all": false,
+	"normalize_html": false,
+	"save_info_json": false,
+	"skip_duplicate_headword": false,
+	"trim_arabic_diacritics": false,
+
+	"color.enable.cmd.unix": true,
+	"color.enable.cmd.windows": false,
+
+	"color.cmd.critical": 196,
+	"color.cmd.error": 1,
+	"color.cmd.warning": 208,
+
+	"cmdi.prompt.indent.str": ">",
+	"cmdi.prompt.indent.color": 2,
+	"cmdi.prompt.msg.color": -1,
+	"cmdi.msg.color": -1,
+
+
+	"ui_autoSetFormat": true,
+
+	"reverse_matchWord": true,
+	"reverse_showRel": "Percent",
+	"reverse_saveStep": 1000,
+	"reverse_minRel": 0.3,
+	"reverse_maxNum": -1,
+	"reverse_includeDefs": false
+}
